@@ -18,8 +18,8 @@ O PayFlow se trata de um app mobile feito em Flutter 💙 para Gerenciamento de 
 - Sistema de ecclusão de boletos.
 
 
-![ShowModalBottomSheet](https://github.com/AndreLuiz-JService/PayFlow/blob/master/assets/images/ShowModalBottomSheet.jpeg) 
-![boletos pagos]https://github.com/AndreLuiz-JService/PayFlow/blob/master/assets/images/boletos_pagos.jpeg) 
+![ShowModalBottomSheet](https://github.com/AndreLuiz-JService/PayFlow/blob/master/assets/images/ShowModalBottomSheet.jpeg =100x20) 
+![boletos pagos]https://github.com/AndreLuiz-JService/PayFlow/blob/master/assets/images/boletos_pagos.jpeg =100x20) 
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
