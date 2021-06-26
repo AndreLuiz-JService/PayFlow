@@ -1,6 +1,6 @@
-# projeto_nlw2
+# PayFlw
 
-A new Flutter project.
+![capa do projeto](https://github.com/AndreLuiz-JService/PayFlow/blob/master/PayFlow%20Capa.PNG)  
 
 ## Getting Started
 
