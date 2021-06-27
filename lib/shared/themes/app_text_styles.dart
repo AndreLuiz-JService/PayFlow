@@ -53,6 +53,11 @@ class AppTextStyles {
     fontWeight: FontWeight.w400,
     color: AppColors.deletar[500],
   );
+  static final buttonDeletarTitle = GoogleFonts.inter(
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+    color: AppColors.deletar[500],
+  );
   static final buttonHeading = GoogleFonts.inter(
     fontSize: 15,
     fontWeight: FontWeight.w400,

@@ -6,10 +6,10 @@ import 'package:projeto_nlw2/shared/themes/appcolors.dart';
 
 class ShowModalBottomSheetBoletoWidget extends StatelessWidget {
   final Function(String) removerBoleto;
-  final Function(String) addBoletoPago;
+  final Function(String,bool) setarEstado;
   final BoletoModel boletoModel;
   const ShowModalBottomSheetBoletoWidget(
-      {Key? key, required this.boletoModel, required this.removerBoleto, required this.addBoletoPago})
+      {Key? key, required this.boletoModel, required this.removerBoleto, required this.setarEstado})
       : super(key: key);
 
   @override
@@ -53,15 +53,16 @@ class ShowModalBottomSheetBoletoWidget extends StatelessWidget {
                 ContainerOption(
                   label: "Ainda não",
                   color: AppColors.shape,
-                  resposta: () {
-                    print(boletoModel.isPaid);
+                  resposta: ()async {
+                    await  setarEstado(boletoModel.name!,false);
+                  Navigator.pop(context);
                   },
                 ),
                 ContainerOption(
                   label: "Sim",
                   color: AppColors.primary,
                   resposta: ()async {
-                  await  addBoletoPago(boletoModel.name!);
+                  await  setarEstado(boletoModel.name!,true);
                   Navigator.pop(context);
                   },
                   style: AppTextStyles.buttonBackground,

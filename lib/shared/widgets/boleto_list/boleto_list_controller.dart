@@ -50,7 +50,7 @@ class BoletoListController {
     } catch (e) {}
   }
 
-  void addPago(String name) async {
+  void setarEstado(String name, bool setar) async {
     try {
       final instance = await SharedPreferences.getInstance();
       final response = instance.getStringList("boletos");
@@ -62,12 +62,13 @@ class BoletoListController {
       model = model.copyWith(
         barcode: boleto.barcode,
         dueDate: boleto.dueDate,
-        isPaid: true,
+        isPaid: setar,
         name: boleto.name,
         value: boleto.value,
       );
       boletos.removeWhere((element) => element.name == name);
       boletos.add(model);
+      boletosPagos = boletos.where((e) => e.isPaid == true).toList();
       boletos.map((e) => response.add(e.toJson())).toList();
       await instance.setStringList("boletos", response);
     } catch (e) {}

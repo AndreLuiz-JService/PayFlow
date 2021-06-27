@@ -345,6 +345,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
+  rflutter_alert:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "899652b6c65dbc7c8f6e72e085f0e339e098be42"
+      url: "git://github.com/RatelHub/rflutter_alert.git"
+    source: git
+    version: "2.0.2"
   shared_preferences:
     dependency: "direct main"
     description:

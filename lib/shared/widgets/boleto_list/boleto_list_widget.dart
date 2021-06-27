@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_nlw2/modules/home/home_controller.dart';
 import 'package:projeto_nlw2/shared/models/boleto_model.dart';
 import 'package:projeto_nlw2/shared/themes/appcolors.dart';
 import 'package:projeto_nlw2/shared/widgets/boleto_list/boleto_list_controller.dart';
@@ -33,8 +32,7 @@ class _BoletoListWidgetState extends State<BoletoListWidget> {
             child: ShowModalBottomSheetBoletoWidget(
               boletoModel: boletoModel,
               removerBoleto: widget.controller.remover,
-              addBoletoPago: widget.controller.addPago,
-              
+              setarEstado: widget.controller.setarEstado,
             ),
           ),
         );

@@ -8,11 +8,13 @@ import 'package:projeto_nlw2/shared/themes/appcolors.dart';
 import 'package:projeto_nlw2/shared/widgets/boleto_info/boleto_info_widget.dart';
 import 'package:projeto_nlw2/shared/widgets/boleto_list/boleto_list_controller.dart';
 import 'package:projeto_nlw2/shared/widgets/boleto_list/boleto_list_widget.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MeusBoletosPage extends StatefulWidget {
   final int homeController;
-  const MeusBoletosPage({Key? key, required this.homeController}) : super(key: key);
+  const MeusBoletosPage({Key? key, required this.homeController})
+      : super(key: key);
   @override
   _MeusBoletosPageState createState() => _MeusBoletosPageState();
 }
@@ -20,6 +22,57 @@ class MeusBoletosPage extends StatefulWidget {
 class _MeusBoletosPageState extends State<MeusBoletosPage> {
   final controller = BoletoListController();
   final controllerInsertBoleto = InsertBoletoController();
+
+  confirmationPopup(
+    BuildContext dialogContext,
+  ) {
+    var alertStyle = AlertStyle(
+      overlayColor: Colors.black87,
+      isCloseButton: true,
+      isOverlayTapDismiss: true,
+      titleStyle: AppTextStyles.buttonDeletarTitle,
+      descStyle: AppTextStyles.buttonBoldGray,
+      animationDuration: Duration(milliseconds: 400),
+    );
+
+    Alert(
+      context: context,
+      style: alertStyle,
+      title: "Cuidado",
+      desc: "Deseja remover todos os boletos?",
+      buttons: [
+        DialogButton(
+          child: Text(
+            "cancelar",
+            style: AppTextStyles.buttonBoldGray,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          width: 100,
+          color: AppColors.shape,
+          border: Border.all(color: AppColors.stroke),
+        ),
+        DialogButton(
+          child: Text(
+            "confirmar",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () async {
+            final instance = await SharedPreferences.getInstance();
+            final json = instance.get(
+              "user",
+            ) as String;
+            await controllerInsertBoleto.removerBoleto();
+            Navigator.pushReplacementNamed(context, "/home",
+                arguments: UserModel.fromJson(json));
+          },
+          color: AppColors.primary,
+        )
+      ],
+    ).show();
+  }
+
   @override
   void initState() {
     controller.boletos;
@@ -74,19 +127,14 @@ class _MeusBoletosPageState extends State<MeusBoletosPage> {
                 direction: AnimatedCardDirection.bottom,
                 duration: Duration(seconds: 1),
                 child: TextButton(
-                    child: Text(
-                      "Remover Boletos",
-                      style: AppTextStyles.buttonBoldTitlePrimary,
-                    ),
-                    onPressed: () async {
-                      final instance = await SharedPreferences.getInstance();
-                      final json = instance.get(
-                        "user",
-                      ) as String;
-                      await controllerInsertBoleto.removerBoleto();
-                      Navigator.pushReplacementNamed(context, "/home",
-                          arguments: UserModel.fromJson(json));
-                    }),
+                  child: Text(
+                    "Remover Boletos",
+                    style: AppTextStyles.buttonBoldTitlePrimary,
+                  ),
+                  onPressed: ()  {
+                    confirmationPopup(context);
+                  },
+                ),
               )
             ],
           ),
