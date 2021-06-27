@@ -4,6 +4,7 @@ import 'package:projeto_nlw2/modules/meus_boletos_page/meus_boletos_page.dart';
 import 'package:projeto_nlw2/shared/models/user_model.dart';
 import 'package:projeto_nlw2/shared/themes/app_text_styles.dart';
 import 'package:projeto_nlw2/shared/themes/appcolors.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 import 'home_controller.dart';
 
@@ -17,6 +18,53 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final controller = HomeController();
+
+  confirmationPopup(
+    BuildContext dialogContext,
+  ) {
+    var alertStyle = AlertStyle(
+      overlayColor: Colors.black87,
+      isCloseButton: true,
+      isOverlayTapDismiss: true,
+      buttonsDirection: ButtonsDirection.row,
+      titleStyle: AppTextStyles.buttonDeletarTitle,
+      descStyle: AppTextStyles.buttonBoldGray,
+      animationDuration: Duration(milliseconds: 400),
+    );
+
+    Alert(
+      context: context,
+      style: alertStyle,
+      title: "Sair",
+      desc: "Deseja Sair da conta? ${widget.user.name}",
+      buttons: [
+        DialogButton(
+          child: Text(
+            "cancelar",
+            style: AppTextStyles.buttonBoldGray,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          width: 100,
+          color: AppColors.shape,
+          border: Border.all(color: AppColors.stroke),
+        ),
+        DialogButton(
+          child: Text(
+            "confirmar",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () async {
+            await controller.logout();
+            Navigator.pushReplacementNamed(context, "/login");
+          },
+          color: AppColors.primary,
+        )
+      ],
+    ).show();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,14 +91,19 @@ class _HomePageState extends State<HomePage> {
                 'Mantenha suas contas em dia',
                 style: AppTextStyles.captionShape,
               ),
-              trailing: Container(
-                height: 48,
-                width: 48,
-                decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(5),
-                    image: DecorationImage(
-                        image: NetworkImage(widget.user.photoURL!))),
+              trailing: GestureDetector(
+                onTap: () {
+                  confirmationPopup(context);
+                },
+                child: Container(
+                  height: 48,
+                  width: 48,
+                  decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(5),
+                      image: DecorationImage(
+                          image: NetworkImage(widget.user.photoURL!))),
+                ),
               ),
             ),
           ),
@@ -120,3 +173,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+//a
